@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sounds/bg.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Sprites/back1/back3.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/back1/back.tres" type="Texture" id=4]
+[ext_resource path="res://Scripts/Enemy_Spawner.gd" type="Script" id=5]
+
+[node name="World" type="Node2D"]
+
+[node name="Enemies" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 514, 351 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.9, 1 )
+motion_mirroring = Vector2( 1025.6, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 511.8, 310.2 )
+scale = Vector2( 1.6, 1.6 )
+texture = ExtResource( 3 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1025.6, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 511.8, 485.2 )
+scale = Vector2( 1.6, 1.6 )
+texture = ExtResource( 4 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 514, 351 )
+current = true
+limit_top = 0
+limit_bottom = 600
+limit_smoothed = true
+smoothing_enabled = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 2 )
+autoplay = true
